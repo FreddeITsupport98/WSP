@@ -4,8 +4,8 @@
 sudo install apt apache2 
 sudo mysql -u root
 
-sudo /etc/init.d/apache2 start
-  145  cd
+* sudo /etc/init.d/apache2 start
+* 145  cd
   146  ls
   147  mkdir puplic_html
   148  cd cd
