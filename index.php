@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Den fantastiska tweetsidan!</h1>
+        <h1>Min twitter sida</h1>
 <?php
 include 'include/dbinfo.php';
 // mysql -u -p
@@ -28,7 +28,7 @@ $sth = $dbh->prepare('SELECT * FROM tweet
             JOIN users
             ON tweet.user_id = users.id');
 $sth->execute();
-$result = $sth->fetchAll(PDO::FETCH_ASSOC);
+$result = $sth->fetchAll(PDO::FETCH_ASSOC); 
 //echo "<pre>" . print_r($result,1) . "</pre>";
 foreach ($result as $row) {
     //echo "<pre>" . print_r($row,1) . "</pre>";
