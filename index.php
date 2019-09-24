@@ -1,43 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
-        <h1>Min twitter sida</h1>
 <?php
-include 'include/dbinfo.php';
-// mysql -u -p
-// use database;
-try {
-    $dbh = new PDO(
+include 'include/dbinfo.php'; // lässer in  databasen med användare och lösenord
+try { //ger en undentag
+    $dbh = new PDO( // repsentera kopplingen mellan server och databass
         'mysql:host=localhost;dbname=' . $database . '',
          $user,
           $password
     );
-} catch (PDOException $e) {
+} catch (PDOException $e) { // ska inte fånga pdo exception om fel dycker upp
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
 }
-// select * from tweet
-$sth = $dbh->prepare('SELECT * FROM tweet
-            JOIN users
-            ON tweet.user_id = users.id');
-$sth->execute();
-$result = $sth->fetchAll(PDO::FETCH_ASSOC); 
-//echo "<pre>" . print_r($result,1) . "</pre>";
-foreach ($result as $row) {
-    //echo "<pre>" . print_r($row,1) . "</pre>";
-    echo "<div>";
-    echo "<h2>" . $row['body'] . "</h2>";
-    echo "<p>" . $row['name'] . "</p>";
-    echo "</div>";
-}
+$sth = $dbh->prepare('SELECT tweet.*, users.name FROM tweet #väljer alla användernamn från samma tweet statehandler och dataasehandler
+            JOIN users # lägger till användera
+            ON tweet.user_id = users.id # tweet user id eller user id
+            ORDER BY updated_at DESC'); # ordning enlingt description
+$sth->execute(); // kör
+$result = $sth->fetchAll(PDO::FETCH_ASSOC); // ger resultat
+
+include 'views/index_layout.php';
+include 'view/tweet.layout.php';
 ?>
-    </div>
-</body>
-</html>

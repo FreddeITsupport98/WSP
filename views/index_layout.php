@@ -19,11 +19,13 @@
                     </small>
                 </h5>
             </header>
-            <div class="card-body">
-                <p class="card-text">
-                    <?= $row['body'] ?>
-                </p>
-            </div>
+            <a href="tweet.php?id=<?= $row['id'] ?>">
+                <div class="card-body">
+                    <p class="card-text">
+                        <?= $row['body'] ?>
+                    </p>
+                </div>
+            </a>
             <footer class="card-footer d-flex justify-content-end">
             </footer>
         </section>
