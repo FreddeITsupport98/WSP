@@ -10,7 +10,7 @@ $tweetId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 include 'include/dbinfo.php';
 try {
     $dbh = new PDO(
-        'mysql:host=localhost;dbname=' . $database . '',
+        'mysql:host=localhost;charset=utf8mb4;dbname=' . $database . '',
          $user,
           $password
     );
@@ -23,7 +23,8 @@ $sth = $dbh->prepare('SELECT tweet.*, users.name FROM tweet #väljer tweet med a
             ON tweet.user_id = users.id #User.id och weet.user_id
             WHERE tweet.id =' . $tweetId);
 $sth->execute();
+$row = $sth->fetch(PDO::FETCH_ASSOC);
 $result = $sth->fetch(PDO::FETCH_ASSOC);
-print_r($result);
-
+echo "<pre>" . print_r($result,1 ) . "</pre>";
+include 'views/tweet-layout.php';
 ?>

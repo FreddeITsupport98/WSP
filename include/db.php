@@ -18,6 +18,5 @@ $sth->execute(); // kör
 $result = $sth->fetchAll(PDO::FETCH_ASSOC); // ger resultat
 
 include 'views/index_layout.php';
-include 'views/tweet-layout.php';
-icnlude 'tweet.php'
+include 'view/tweet-layout.php';
 ?>

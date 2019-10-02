@@ -1,0 +1,18 @@
+.material-icons {
+    font-size: 1em;
+}
+
+.jumbotron {
+    background-image: url('../img/bg.png');
+    background-origin: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.button-add {
+    position: fixed;
+    font-size: 3em;
+    right: 0.3em;
+    bottom: 0.3em;
+}
