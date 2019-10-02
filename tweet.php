@@ -1,30 +1,36 @@
 <?php
+session_start();
+include 'include/db.php';
 
-// tweet.php?id=3
-
-// tweet.php?id=<script>alert("xss")</script>
-
-//$tweetId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 $tweetId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-include 'include/dbinfo.php';
-try {
-    $dbh = new PDO(
-        'mysql:host=localhost;charset=utf8mb4;dbname=' . $database . '',
-         $user,
-          $password
-    );
-} catch (PDOException $e) {
-    print "Error!: " . $e->getMessage() . "<br/>";
-    die();
-}
-$sth = $dbh->prepare('SELECT tweet.*, users.name FROM tweet #väljer tweet med alla användar namn
-            JOIN users #lägget till användar namn
-            ON tweet.user_id = users.id #User.id och weet.user_id
-            WHERE tweet.id =' . $tweetId);
+$sth = $dbh->prepare('SELECT tweet.*, users.name FROM tweet
+            JOIN users
+            ON tweet.user_id = users.id
+            WHERE tweet.id = :tweetId');
+$sth->bindParam(':tweetId', $tweetId);
 $sth->execute();
 $row = $sth->fetch(PDO::FETCH_ASSOC);
-$result = $sth->fetch(PDO::FETCH_ASSOC);
-echo "<pre>" . print_r($result,1 ) . "</pre>";
-include 'views/tweet-layout.php';
+
+$title = "Tweeters from " . $row['name'];
+
+/*SELECT * 
+FROM tweet 
+join users on tweet.user_id = users.id
+join comments on tweet.id = comments.tweet_id
+where tweet.id = 2;
+*/
+
+$sth = $dbh->prepare('SELECT tweet.*, users.name, comments.body as comment 
+            FROM tweet
+            JOIN users
+            ON tweet.user_id = users.id
+            JOIN comments
+            ON tweet.id = comments.tweet_id
+            WHERE tweet.id = :tweetId');
+$sth->bindParam(':tweetId', $tweetId);
+$sth->execute();
+$result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+include 'views/tweet.php';
 ?>

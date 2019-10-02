@@ -1,4 +1,4 @@
-<?php if (isset($_SESSION['userId'])): ?>
+    <?php if (isset($_SESSION['userId'])): ?>
         <a class="secondary-link" href="post.php"><i class="button button-add material-icons">add_circle</i></a>
     <?php endif ?>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
